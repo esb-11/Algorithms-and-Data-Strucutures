@@ -1,6 +1,7 @@
-const nums = [0, 0, 1, -1, 1, -1];
+const nums = [2, 7, 8, 3, 7, 6];
 
-console.log(isPalindrome("Hello, World!"));
+console.log(nums);
+console.log(largestContainer(nums));
 
 function randomArray() {
     const array = [];
@@ -90,4 +91,33 @@ function isNumericChar(char) {
 function isAlphabeticalChar(char) {
     const charCode = char.charCodeAt(0);
     return (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122);
+}
+
+function largestContainer(array) {
+    let biggestArea = 0;
+
+    let left = 0;
+    let right = array.length - 1;
+
+    let i = left;
+    let j = right;
+
+    while (i < j) {
+        const height = array[i] > array[j] ? array[j] : array[i];
+        const width = j - i;
+        const area = height * width;
+        
+        biggestArea = area > biggestArea ? area : biggestArea;
+
+        if (array[left] < array[right]) {
+            i += 1;
+        } else if (array[right] < array[left]) {
+            j -= 1;
+        } else {
+            i += 1;
+            j -= 1
+        }
+    }
+
+    return (biggestArea);
 }
