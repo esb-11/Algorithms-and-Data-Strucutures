@@ -1,9 +1,4 @@
-class ListNode {
-  constructor(val, next) {
-    this.val = val;
-    this.next = next;
-  }
-}
+import { ListNode, makeLinkedList, makeLinkedListsWithIntersection, logLinkedList } from "../fast_and_slow_pointers/ListNode.js";
 
 class DoubleLinkedNode {
   constructor(key, val) {
@@ -30,59 +25,6 @@ LRU.put(4, 300);
 LRU.put(3, 200);
 LRU.get(4);
 LRU.get(1);
-
-// LinkedList implementation
-function makeLinkedList(array) {
-  let nextNode;
-
-  for (let i = array.length - 1; i >= 0; i--) {
-    const currentNode = new ListNode(array[i], nextNode);
-    nextNode = currentNode;
-  }
-
-  return nextNode;
-}
-
-function makeLinkedListsWithIntersection(
-  uniqueValues1,
-  uniqueValues2,
-  commonValues
-) {
-  const list1 = makeLinkedList(uniqueValues1);
-  const list2 = makeLinkedList(uniqueValues2);
-  const intersection = makeLinkedList(commonValues);
-
-  let node;
-
-  node = list1;
-  while (node.next) {
-    node = node.next;
-  }
-  node.next = intersection;
-
-  node = list2;
-  while (node.next) {
-    node = node.next;
-  }
-  node.next = intersection;
-
-  return [list1, list2];
-}
-
-function logLinkedList(listHeader) {
-  // return;
-  let string = "";
-  let currentNode = listHeader;
-
-  while (currentNode) {
-    string += currentNode.next
-      ? `${currentNode.val} -> `
-      : `${currentNode.val}`;
-    currentNode = currentNode.next;
-  }
-
-  console.log(string);
-}
 
 // Exercises
 function reverseLinkedList(header) {
@@ -164,7 +106,7 @@ function LRUCache(capacity) {
   }
 
   function addToTail(node) {
-    prev_node = tail.prev;
+    let prev_node = tail.prev;
     node.prev = prev_node;
     node.next = tail;
     prev_node.next = node;
