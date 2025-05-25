@@ -1,22 +1,13 @@
-import { ListNode, makeLinkedList, logLinkedList } from "./ListNode.js";
+import { makeLinkedList, loopLinkedList } from "./ListNode.js";
 
 const nums = [0, 1, 2, 3, 4, 5];
 const linkedList = makeLinkedList(nums);
 
-// make a linked list loop
-let tail = linkedList;
-while (tail.next) {
-  tail = tail.next;
-}
-
-let node = linkedList;
-while (node.val != 2) {
-  node = node.next;
-}
-tail.next = node;
+loopLinkedList(linkedList, 2);
 
 console.log(linkedListLoop(linkedList));
 
+// Determine if a linked list has a loop
 function linkedListLoop(head) {
   if (!head.next) {
     return false;

@@ -44,6 +44,19 @@ function makeLinkedListsWithIntersection(
   return [list1, list2];
 }
 
+function loopLinkedList(linkedList, loopPoint) {
+  let tail = linkedList;
+  while (tail.next) {
+    tail = tail.next;
+  }
+
+  let node = linkedList;
+  while (node.val != loopPoint) {
+    node = node.next;
+  }
+  tail.next = node;
+}
+
 function logLinkedList(listHeader) {
   // return;
   let string = "";
@@ -59,4 +72,10 @@ function logLinkedList(listHeader) {
   console.log(string);
 }
 
-export { ListNode, makeLinkedList, makeLinkedListsWithIntersection, logLinkedList };
+export {
+  ListNode,
+  makeLinkedList,
+  makeLinkedListsWithIntersection,
+  loopLinkedList,
+  logLinkedList,
+};
