@@ -1,4 +1,4 @@
-import { makeLinkedList, loopLinkedList } from "./ListNode.js";
+import { makeLinkedList, logLinkedList } from "../linked_list/ListNode.js";
 
 const nums = [0, 1, 2, 3, 4, 5];
 const linkedList = makeLinkedList(nums);
