@@ -14,8 +14,8 @@ function validParenthesis(string) {
     if (opening[char]) {
       stack.push(char);
     } 
-    // if char is a closing parenthesis, check if the corresponding opening parenthesis is at the top of the stack,
-    // If it is not, return false.
+    // if char is a closing parenthesis, pop the stack and check if they match,
+    // if it does not match, return false.
     else if (closing[char] && !(closing[char] == stack.pop())) {
       return false;
     }
