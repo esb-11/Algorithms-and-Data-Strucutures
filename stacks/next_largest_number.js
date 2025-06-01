@@ -4,7 +4,6 @@ console.log(nextLargestNumber(input));
 
 function nextLargestNumber(array) {
   const res = new Array(array.length);
-
   const stack = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
