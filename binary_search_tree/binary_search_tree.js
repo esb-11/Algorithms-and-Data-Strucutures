@@ -160,19 +160,103 @@ class Tree {
     callback(root);
   }
 
-  height(value) {}
+  height(value) {
+    let height = 0;
+    const root = this.find(value);
+    if (!root) return null;
 
-  depth(value) {}
+    const stack = [[root.left, root.right]];
 
-  isBalanced() {}
+    while (stack.length !== 0) {
+      const currNode = stack.at(-1);
 
-  rebalance() {}
+      let node;
+      if (currNode[0]) {
+        node = currNode[0];
+        currNode[0] = undefined;
+      } else if (currNode[1]) {
+        node = currNode[1];
+        currNode[1] = undefined;
+      } else {
+        height = stack.length > height ? stack.length : height;
+        stack.pop();
+      }
+
+      if (node) stack.push([node.left, node.right]);
+    }
+
+    return height - 1;
+  }
+
+  depth(value) {
+    if (this.root.data === value) return 0;
+
+    let stack = [[this.root.left, this.root.right]];
+
+    while (stack.length !== 0) {
+      const topOfStack = stack.at(-1);
+      let node;
+
+      if (topOfStack[0]) {
+        node = topOfStack[0];
+        topOfStack[0] = undefined;
+      } else if (topOfStack[1]) {
+        node = topOfStack[1];
+        topOfStack[1] = undefined;
+      } else {
+        stack.pop();
+      }
+
+      if (node) {
+        if (node.data === value) return stack.length;
+        stack.push([node.left, node.right]);
+      }
+    }
+
+    return null;
+  }
+
+  isBalanced(root = this.root) {
+    if (!root) return 1;
+
+    const left = this.isBalanced(root.left);
+    const right = this.isBalanced(root.right);
+
+    if (!left || !right) return false;
+
+    const difference = left > right ? left - right : right - left;
+    if (difference > 1) return false;
+
+    return (left > right ? left : right) + 1;
+  }
+
+  rebalance() {
+    const array = [];
+    tree.inOrder((node) => {array.push(node.data)})
+    this.root = this.buildTree(array);    
+  }
 }
 
-const input = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const input = [];
+
+for (let i = 0; i < 100; i++) {
+  const randomNumber = Math.ceil(Math.random() * 100);
+  input.push(randomNumber);
+}
 
 const tree = new Tree(input);
+
 prettyPrint(tree.root);
-tree.postOrder((node) => {
-  console.log(node.data);
-});
+console.log(tree.isBalanced());
+
+for (let i = 0; i < 100; i++) {
+  const randomNumber = Math.ceil(Math.random() * 100);
+  tree.insert(randomNumber);
+}
+
+prettyPrint(tree.root);
+console.log(tree.isBalanced());
+
+tree.rebalance();
+prettyPrint(tree.root);
+console.log(tree.isBalanced());
