@@ -69,7 +69,7 @@ function logLinkedList(listHeader) {
     currentNode = currentNode.next;
   }
 
-  console.log(string);
+  return string;
 }
 
 export {
